@@ -91,14 +91,19 @@
       },
       mounted() {
         const echo = new Echo({
-          broadcaster: "socket.io"
-        })
+        broadcaster: "socket.io",  // Missing comma added here
+        host: window.location.hostname + ':6001'
+    });
+
+        console.log("mounted =>", echo);
 
         echo.join('chat')
         .here((users) => {
           this.users = users
         })
         .listen('MessageSent', (event) => {
+          console.log("event ======>>>>",event);
+
           this.messages.push(event);
         });
       },
